@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const HeaderContainer = styled.header`
   max-width: 1200px;
@@ -8,7 +8,7 @@ const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   margin: 0 auto;
-  box-shadow: 0px 4px rgba(0, 0, 0, 0.25);
+  ${(props) => props.isShadow && "box-shadow: 0px 4px rgba(0, 0, 0, 0.25);"}
 `;
 
 const HeaderMenuWrapper = styled.nav`
@@ -18,7 +18,7 @@ const HeaderMenuWrapper = styled.nav`
   flex: 1 0 0px;
 `;
 
-const LogoBox = styled.a`
+const LogoBox = styled(Link)`
   width: 100px;
   height: 100px;
   margin-right: 200px;
@@ -66,26 +66,34 @@ const ClassText = styled(Text)`
   }
 `;
 
-export const Header = ({ props }) => {
+export const Header = (props) => {
+  const user = false;
+  const type = props.type;
   // const user = useSelector(({user}) => ({user: user.user}))
   // history.push('/')
   return (
-    <HeaderContainer>
+    <HeaderContainer isShadow={type !== "LOGIN"}>
       <HeaderMenuWrapper>
-        <LogoBox
-          onClick={() => {
-            window.history.push("/");
-          }}
-        >
+        <LogoBox to="/">
           <img src={require("../../assets/icons/logo.svg").default} alt={""} />
         </LogoBox>
-        <ClassText to="/class">재능기부</ClassText>
-        <Text to="/board">재능모집</Text>
+        {type !== "LOGIN" ? (
+          <>
+            <ClassText to="/class">재능기부</ClassText>
+            <Text to="/board">재능모집</Text>
+          </>
+        ) : (
+          <></>
+        )}
       </HeaderMenuWrapper>
-      <MyBox>
-        <img src={require("../../assets/icons/my.svg").default} alt={""} />
-        <MyText>내 정보</MyText>
-      </MyBox>
+      {user ? (
+        <MyBox>
+          <img src={require("../../assets/icons/my.svg").default} alt={""} />
+          <MyText>내 정보</MyText>
+        </MyBox>
+      ) : (
+        <Text to={"/register"}>회원가입</Text>
+      )}
     </HeaderContainer>
   );
 };
