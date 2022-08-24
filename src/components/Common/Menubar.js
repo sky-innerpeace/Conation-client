@@ -36,12 +36,11 @@ const MyText = styled.div`
 `;
 
 const Text = styled(NavLink)`
-  padding: 30px;
+  padding: ${(props) => (props.size === "LARGE" ? 30 : 14)}px;
   position: relative;
   font-family: "NOTO SANS KR";
   font-weight: 600;
-  margin-right: 70px;
-  font-size: 24px;
+  font-size: ${(props) => (props.size === "LARGE" ? 24 : 16)}px;
   text-decoration: none;
   color: black;
   &.active {
@@ -79,8 +78,12 @@ export const Header = (props) => {
         </LogoBox>
         {type !== "LOGIN" ? (
           <>
-            <ClassText to="/class">재능기부</ClassText>
-            <Text to="/board">재능모집</Text>
+            <ClassText to="/class" size={"LARGE"}>
+              재능기부
+            </ClassText>
+            <Text to="/board" size={"LARGE"}>
+              재능모집
+            </Text>
           </>
         ) : (
           <></>
@@ -92,7 +95,14 @@ export const Header = (props) => {
           <MyText>내 정보</MyText>
         </MyBox>
       ) : (
-        <Text to={"/register"}>회원가입</Text>
+        <>
+          <Text to={"/login"} size={"SMALL"}>
+            로그인
+          </Text>
+          <Text to={"/register"} size={"SMALL"}>
+            회원가입
+          </Text>
+        </>
       )}
     </HeaderContainer>
   );
