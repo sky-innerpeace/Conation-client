@@ -6,9 +6,8 @@ import { ClassList } from "../../components/List/ClassList";
 import { useSelector } from "react-redux";
 
 const Home = ({ history }) => {
-  const userId = useSelector(({ userId }) => ({
-    userId: userId,
-  }));
+  const userId = useSelector((store) => store.userReducer.userId);
+  console.log(userId);
   return (
     <>
       <Header />

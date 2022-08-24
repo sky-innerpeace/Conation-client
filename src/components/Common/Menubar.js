@@ -1,9 +1,14 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const HeaderContainer = styled.header`
-  max-width: 1200px;
+  ${(props) =>
+    props.isShadow &&
+    css`
+      max-width: 1200px;
+    `}
   padding: 20px 20px 20px 90px;
   display: flex;
   align-items: center;
@@ -22,6 +27,13 @@ const LogoBox = styled(Link)`
   width: 100px;
   height: 100px;
   margin-right: 200px;
+  ${(props) =>
+    props.type === "LOGIN" &&
+    css`
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    `}
 `;
 
 const MyBox = styled.a`
@@ -51,7 +63,7 @@ const Text = styled(NavLink)`
 const ClassText = styled(Text)`
   &.active::before {
     content: "";
-    bottom: -35px;
+    bottom: -25px;
     position: absolute;
     width: 0;
     height: 0;
@@ -66,15 +78,26 @@ const ClassText = styled(Text)`
 `;
 
 export const Header = (props) => {
-  const user = false;
   const type = props.type;
-  // const user = useSelector(({user}) => ({user: user.user}))
-  // history.push('/')
+  const user = useSelector((store) => store.userReducer.userId);
+
   return (
     <HeaderContainer isShadow={type !== "LOGIN"}>
       <HeaderMenuWrapper>
-        <LogoBox to="/">
-          <img src={require("../../assets/icons/logo.svg").default} alt={""} />
+        <LogoBox to="/" type={"LOGIN"}>
+          <img
+            src={require("../../assets/icons/logo.png")}
+            alt={""}
+            width="100px"
+            style={{ marginRight: "20px" }}
+          />
+          {type === "LOGIN" && (
+            <img
+              src={require("../../assets/icons/COINS.svg").default}
+              alt={""}
+              width="150px"
+            />
+          )}
         </LogoBox>
         {type !== "LOGIN" ? (
           <>

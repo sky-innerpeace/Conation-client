@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "../../components/Common/Menubar";
 import styled from "styled-components";
 import image from "../../assets/image/bg-login.png";
@@ -6,6 +6,8 @@ import { Formik } from "formik";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -79,6 +81,13 @@ const Toast = styled.p`
 `;
 
 const RegisterPage = ({ history }) => {
+  const navigate = useNavigate();
+  const userId = useSelector((store) => store.userReducer.userId);
+  useEffect(() => {
+    if (userId) {
+      navigate("/");
+    }
+  }, []);
   const submit = async (values) => {
     const { name, email, password } = values || {};
     let userInfo = {

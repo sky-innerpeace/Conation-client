@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "../../components/Common/Menubar";
 import styled from "styled-components";
 import image from "../../assets/image/bg-login.png";
@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 const PageContainer = styled.div`
-  padding: 100px;
+  padding: 30px 100px;
   position: relative;
   display: block;
   flex-grow: 1;
@@ -39,7 +39,7 @@ const FieldWrapper = styled.form`
   flex: 1 1 0px;
   width: 40%;
   text-align: center;
-  margin: 200px 0;
+  margin: 250px 0;
 `;
 
 const Text = styled.p`
@@ -85,6 +85,14 @@ const Toast = styled.p`
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userId = useSelector((store) => store.userReducer.userId);
+
+  useEffect(() => {
+    if (userId) {
+      navigate("/");
+    }
+  }, []);
+
   const submit = async (values) => {
     const { email, password } = values || {};
     console.log(email);
@@ -126,8 +134,8 @@ const LoginPage = () => {
             <Header type={"LOGIN"} />
             <BackgroundImage />
             <FieldWrapper onSubmit={handleSubmit} autoComplete="off">
-              <Text margin={12}>⭐ 두근두근 ⭐</Text>
-              <Text>오늘도 Conation을 찾아주셔서 고마워요</Text>
+              <Text margin={30}>⭐ 두근두근 ⭐</Text>
+              <Text margin={120}>오늘도 Conation을 찾아주셔서 고마워요</Text>
               <Input
                 type="email"
                 name="email"

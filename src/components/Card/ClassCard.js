@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import image from "../../assets/image/thumnail.png";
+import { useSelector } from "react-redux";
 
 const CLASS = {
   // font-size, margin-top, color
@@ -46,7 +47,7 @@ const Text = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: ${(props) => (props.type === "TITLE" ? 1 : 3)};
   color: ${(props) => CLASS[props.type][2]};
   font-size: ${(props) => CLASS[props.type][0]};
   margin-top: ${(props) => CLASS[props.type][1]};
@@ -66,14 +67,15 @@ const FavoriteButton = styled.button`
   margin-right: 6px;
 `;
 
-export const ClassCard = ({ props }) => {
+export const ClassCard = (props) => {
   // user 정보 받아오기
-  // const data = props.data;
+  const data = props.data;
   const [heart, setHeart] = useState(false); // hard-coding
+  const userId = useSelector((store) => store.userReducer.userId);
 
-  // useEffect(() => {
-  //   setHeart(data?.favorites);
-  // }, [data]);
+  useEffect(() => {
+    setHeart(data.favorites.includes(userId));
+  }, []);
 
   const favoriteHandler = () => {
     // body : userId, classId
@@ -89,10 +91,11 @@ export const ClassCard = ({ props }) => {
 
   return (
     <CardContainer to="/">
+      {/* {data.image.length > 0 ? <Image src={image} /> : <Image src={require("")} />} */}
       <Image src={image} />
       <TextWrapper>
         <TextBox>
-          <Text type={"CATEGORY"}>카테고리</Text>
+          <Text type={"CATEGORY"}>{data.category}</Text>
           <ButtonWrapper>
             <FavoriteButton onClick={(e) => buttonClickHandler(e)}>
               {heart ? (
@@ -108,11 +111,8 @@ export const ClassCard = ({ props }) => {
             <p style={{ lineHeight: "16px", margin: 0 }}>24</p>
           </ButtonWrapper>
         </TextBox>
-        <Text type={"TITLE"}>제목</Text>
-        <Text type={"CONTENT"}>
-          난 땅에서도 숨을 쉴 수 있는 물고기였을지도 몰라 난 땅에서도 숨을 쉴 수
-          있는 숨을 쉴 수 있는 물고기였을지도 몰라 난 숨을 쉴 수 있는
-        </Text>
+        <Text type={"TITLE"}>{data.title}</Text>
+        <Text type={"CONTENT"}>{data.content}</Text>
       </TextWrapper>
     </CardContainer>
   );
