@@ -90,7 +90,7 @@ export const ClassCard = (props) => {
   };
 
   return (
-    <CardContainer to="/">
+    <CardContainer to={`/class/detail`} state={{ data: data && data._id }}>
       {/* {data.image.length > 0 ? <Image src={image} /> : <Image src={require("")} />} */}
       <Image src={image} />
       <TextWrapper>
