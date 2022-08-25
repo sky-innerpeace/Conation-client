@@ -65,6 +65,16 @@ const SubmitButton = styled.button`
 `
 const OtherWrapper = styled.div``
 
+const FavoriteButton = styled.button`
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: 0;
+  border: none;
+  margin-right: 6px;
+`;
+
+
 // 신청하기 버튼 /registerClass
 // setOtehrs 바뀌면 반영
 const ClassDetailPage = ({ history }) => {
@@ -73,6 +83,8 @@ const ClassDetailPage = ({ history }) => {
   const user = useSelector((store) => store.userReducer.userId);
   const [post, setPost] = useState([]);
   const [others, setOthers] = useState([]);
+  const [heart, setHeart] = useState(false); // hard-coding
+  const [favoritesnum, setFavoritesnum] = useState(null);
 
   useEffect(() => {
     axios
@@ -81,6 +93,7 @@ const ClassDetailPage = ({ history }) => {
         if(response.data.success) {
           console.log(response.data.result);
           setPost(response.data.result);
+          setFavoritesnum(response.data.result.favorites.length);
         }
         
         axios
@@ -92,7 +105,37 @@ const ClassDetailPage = ({ history }) => {
         });
       });
       
-  }, []);
+  }, [classId]);
+
+  useEffect(() => {
+    setHeart(post.favorites && post.favorites.includes(user));
+  }, [post.favorites, user]);
+
+  const favoriteHandler = (values) => {
+    // body : userId, classId
+    const favorite = {
+      userId: user,
+      classId: post._id
+    }
+    // axios 요청 보내기 /postFavorite
+    axios.post("/api/favorite/postFavorite", favorite).then((response) => {
+      if (response.data.success) {
+        setHeart(response.data.heart);  // 버튼 아이콘 변경
+        if(response.data.heart){
+          setFavoritesnum(favoritesnum+1);  // 찜하기: 개수 +1
+        } else {
+          setFavoritesnum(favoritesnum-1);  // 찜 취소: 개수 -1
+        }
+      }
+    });
+  };
+  const buttonClickHandler = (event) => {
+    event.preventDefault();
+    // 로그인 안 했을 때 예외처리해야 함
+    // 로그인 안 한 유저에게는 toast 띄우기
+    setHeart(!heart);
+    favoriteHandler();
+  };
 
   return (
     <>
@@ -101,6 +144,18 @@ const ClassDetailPage = ({ history }) => {
         <PostWrapper>
         <ImageWrapper></ImageWrapper>
           <ContentWrapper>
+              <FavoriteButton onClick={(e) => buttonClickHandler(e)}>
+                {heart ? (
+                  <img
+                    src={require("../../assets/icons/heart-selected.svg").default}
+                  />
+                ) : (
+                  <img
+                    src={require("../../assets/icons/heart-default.svg").default}
+                  />
+                )}
+              </FavoriteButton>
+              <p style={{ lineHeight: "16px", margin: 0 }}>{favoritesnum+20}</p>
               <Text type={'TITLE'}>{post.title}</Text>
               <Text type={'WRITER'}>{post.writer?.name}</Text>
               <Text type={'WRITER'}>{post.category}</Text>
