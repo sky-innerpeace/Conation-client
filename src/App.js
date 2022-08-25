@@ -10,6 +10,7 @@ import LoginPage from "./pages/Home/LoginPage";
 import MyPage from "./pages/My/Mypage"
 import ClassWritePage from "./pages/Class/ClassWritePage";
 import BoardWritePage from "./pages/Board/BoardWritingPage";
+import ReviewPage from "./pages/Review/ReviewPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/my" element={<MyPage />} />
           <Route path="/class/write" element={<ClassWritePage />} />
           <Route path="/board/write" element={<BoardWritePage />} />
+          <Route path="/review" element={<ReviewPage />} />
         </Routes>
       </Router>
     </>

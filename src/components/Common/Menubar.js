@@ -109,6 +109,9 @@ export const Header = (props) => {
             <Text to="/board" size={"LARGE"}>
               재능모집
             </Text>
+            <Text to="/review" size={"LARGE"}>
+              후기게시판
+            </Text>
           </>
         ) : (
           <></>

@@ -77,10 +77,9 @@ const BoardWritePage = ({ history }) => {
             "text": value.content
         }
         axios.post("/api/memo/postMemo", body).then((response) => {
-            alert("글 작성이 완료되었습니다!");
-            navigate("/");
+            alert("메모 작성이 완료되었습니다!");
+            navigate("/board");
         })
-
       };
     return (
         <>

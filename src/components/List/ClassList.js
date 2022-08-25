@@ -15,7 +15,6 @@ export const ClassList = (props) => {
   // console.log(props.data);
   const userId = props.user || null;
   const data = props.data || null;
-  const hasBorder = props.hasBorder || null;
   const CardList = data?.map((data, index) => {
     return <ClassCard data={data} key={index} />;
   });
