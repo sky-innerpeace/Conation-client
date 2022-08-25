@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import image from "../../assets/image/thumnail.png";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const CLASS = {
   // font-size, margin-top, color
@@ -70,6 +71,7 @@ const FavoriteButton = styled.button`
 export const ClassCard = (props) => {
   // user 정보 받아오기
   const data = props.data;
+  const [favoritesnum, setFavoritesnum] = useState(props.data.favorites.length);
   const [heart, setHeart] = useState(false); // hard-coding
   const userId = useSelector((store) => store.userReducer.userId);
 
@@ -77,9 +79,23 @@ export const ClassCard = (props) => {
     setHeart(data.favorites.includes(userId));
   }, []);
 
-  const favoriteHandler = () => {
+  const favoriteHandler = (values) => {
     // body : userId, classId
+    const favorite = {
+      userId: userId,
+      classId: data._id
+    }
     // axios 요청 보내기 /postFavorite
+    axios.post("/api/favorite/postFavorite", favorite).then((response) => {
+      if (response.data.success) {
+        setHeart(response.data.heart);  // 버튼 아이콘 변경
+        if(response.data.heart){
+          setFavoritesnum(favoritesnum+1);  // 찜하기: 개수 +1
+        } else {
+          setFavoritesnum(favoritesnum-1);  // 찜 취소: 개수 -1
+        }
+      }
+    });
   };
   const buttonClickHandler = (event) => {
     event.preventDefault();
@@ -108,7 +124,7 @@ export const ClassCard = (props) => {
                 />
               )}
             </FavoriteButton>
-            <p style={{ lineHeight: "16px", margin: 0 }}>24</p>
+            <p style={{ lineHeight: "16px", margin: 0 }}>{favoritesnum+20}</p>
           </ButtonWrapper>
         </TextBox>
         <Text type={"TITLE"}>{data.title}</Text>
