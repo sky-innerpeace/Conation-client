@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components/Common/Menubar";
 import styled from "styled-components";
-import image from "../../assets/image/thumnail.png";
+//import image from "../../assets/image/thumnail.png";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -28,8 +28,7 @@ const PostWrapper = styled.div`
   max-width: 1500px;
 `
 
-const ImageWrapper = styled.div`
-  background-image: url(${image});
+const ImageWrapper = styled.img`
   background-color: black;
   width: 600px;
   height: 300px;
@@ -196,7 +195,7 @@ const ClassDetailPage = ({ history }) => {
           maskClosable={true}
           onClose={closeModal}>개설자 {post?.writer.name}님의 연락처는 {post?.writer.email}입니다.<br />3일 내에 기부자 덕우에게 연락해주세요.🙂</Modal>
           }
-        <ImageWrapper /> 
+        <ImageWrapper src={post.image} /> 
           <ContentWrapper>
 
             <Text type={'WRITER'}>{post.placetype ? '[오프라인]' : '[온라인]'}</Text>
