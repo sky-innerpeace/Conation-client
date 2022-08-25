@@ -18,11 +18,12 @@ const PageContainer = styled.div`
 const MenuBox = styled.div`
     width: 30%;
     height: 100%;
-    background-color: gray;
+    /* background-color: gray; */
     padding: 30px;
     display: flex;
     flex-direction: column;
     /* align-items: center; */
+    border-right-style: solid;
 `;
 
 const Img = styled.img`
@@ -73,7 +74,7 @@ const TitleBox = styled.div`
     flex-direction: row;
     justify-content: space-between;
     height: 120px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 2px rgba(0, 0, 0, 1);
 `;
 
 const TitleText = styled.div`
@@ -104,6 +105,15 @@ const NoticeList = styled.div`
     margin: 50px;
 `;
 
+const ApplyClassTitle = styled.div`
+    font-size: 30px;
+    width: 100%;
+    font-family: "NOTO SANS KR";
+    font-weight: bold;
+    margin-top: 30px;
+    margin-left: 30px;
+`;
+
 const MyPage = ({ history }) => {
 
     const userId = useSelector((store) => store.userReducer.userId);
@@ -125,8 +135,8 @@ const MyPage = ({ history }) => {
             console.log(response.data)
             if(response.data.success) {
                 setUser(response.data.user);
-                setWritePost(response.data.writer);
-                setApplyPost(response.data.applicant);
+                setWritePost(response.data.writer); // 개설한 클래스
+                setApplyPost(response.data.applicant);  // 신청한 클래스
                 setFavorites(response.data.favorites);
             } else {
                 console.log("정보 안 받아와짐")
@@ -162,11 +172,15 @@ const MyPage = ({ history }) => {
             </TitleBox>
             {(contentMode === '거래 내역') &&
             <>
-                <ClassInfoBox>
+                {/* <ClassInfoBox>
                     <ClassInfo type={'ONE'}>신청한 클래스</ClassInfo>
                     <ClassInfo type={'TWO'}>재능 공유한 클래스</ClassInfo>
-                </ClassInfoBox>
-                {/* <ClassList data={favorites} /> */}
+                </ClassInfoBox> */}
+                <ApplyClassTitle>신청한 클래스</ApplyClassTitle>
+                <ClassList data={applyPost} />
+                <ApplyClassTitle>내가 개설한 클래스</ApplyClassTitle>
+                <ClassList data={writePost} />
+                
             </>
             }
             {(contentMode === '찜 목록') &&

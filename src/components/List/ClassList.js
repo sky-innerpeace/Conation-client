@@ -17,11 +17,12 @@ export const ClassList = (props) => {
   const data = props.data || null;
   const hasBorder = props.hasBorder || null;
   const CardList = data?.map((data, index) => {
-    return <ClassCard hasBorder={hasBorder} borderColor={userId && (data.writer === userId ? '#B0A4FF' : '#D21D1D')} data={data} key={index} />;
+    return <ClassCard data={data} key={index} />;
   });
 
   return (
     <ListContainer>
+      {CardList}
       {CardList}
     </ListContainer>
   );

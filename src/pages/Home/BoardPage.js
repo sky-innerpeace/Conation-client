@@ -34,7 +34,7 @@ const BoardPage = ({ history }) => {
   const [memos, setMemos] = useState([])
   useEffect(() => {
     axios.get("/api/memo/getMemos").then((response) => {
-      // console.log(response.data.memos)
+      console.log(response.data.memos)
       setMemos(response.data.memos)
     })
   },[])
