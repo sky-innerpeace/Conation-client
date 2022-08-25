@@ -5,6 +5,7 @@ import boardImage from "../../assets/image/bg-board.png"
 import { Memo } from "../../components/Card/Memo"
 import axios from "axios";
 import { useState } from "react";
+import { FloatButton } from "../../components/Common/FloatButton";
 
 const PageContainer = styled.div`
   width: 100%;
@@ -59,6 +60,7 @@ const BoardPage = ({ history }) => {
         <Text>필요한 재능 기부가 아직 안 올라왔나요?<br />원하는 재능 기부를 포스트잇으로 남겨주세요<br />누군가 재능 기부를 올려줄지도 몰라요!</Text>
           {MemoList}
         </Board>
+        <FloatButton data={"포스트잇 작성하기"} link={"/board/write"}/>
       </PageContainer>
     </>
   );
