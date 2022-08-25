@@ -125,7 +125,7 @@ export const ClassCard = (props) => {
                 />
               )}
             </FavoriteButton>
-            <p style={{ lineHeight: "16px", margin: 0 }}>{favoritesnum+20}</p>
+            <p style={{ lineHeight: "16px", margin: 0 }}>{favoritesnum}</p>
           </ButtonWrapper>
         </TextBox>
         <Text type={"TITLE"}>{data.title}</Text>

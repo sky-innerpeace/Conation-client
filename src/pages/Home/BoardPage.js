@@ -9,7 +9,17 @@ import { useState } from "react";
 const PageContainer = styled.div`
   width: 100%;
   display: flex;
+  align-items:center;
 `;
+
+const Text = styled.div`
+  font-size: 24px;
+  color: #fff;
+  font-family: 'NOTO SANS KR';
+  font-weight: 600;
+  margin-bottom: 30px;
+  margin-right: 30px;
+`
 
 const BoardWrapper = styled.div`
   flex: 1 1 0px;
@@ -46,6 +56,7 @@ const BoardPage = ({ history }) => {
       <Header />
       <PageContainer>
         <Board>
+        <Text>필요한 재능 기부가 아직 안 올라왔나요?<br />원하는 재능 기부를 포스트잇으로 남겨주세요<br />누군가 재능 기부를 올려줄지도 몰라요!</Text>
           {MemoList}
         </Board>
       </PageContainer>

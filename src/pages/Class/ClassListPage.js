@@ -4,6 +4,7 @@ import { ClassList } from "../../components/List/ClassList";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { CategoryFilterList } from "../../components/List/CategoryFilterList";
+import { FloatButton } from "../../components/Common/FloatButton";
 
 const ClassListPage = ({ history }) => {
   const userId = useSelector((store) => store.userReducer.userId);
@@ -36,6 +37,7 @@ const ClassListPage = ({ history }) => {
       <Header />
       <CategoryFilterList filter={filter} setFilter={setFilter} />
       <ClassList data={post} />
+      <FloatButton data={'재능 기부하러 가기'} link={'/class/write'} />
     </>
   );
 };

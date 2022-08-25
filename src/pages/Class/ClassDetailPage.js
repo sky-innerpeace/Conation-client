@@ -215,7 +215,7 @@ const ClassDetailPage = ({ history }) => {
                   />
                 )}
               </FavoriteButton>
-              <p style={{ lineHeight: "16px", margin: 0 }}>{favoritesnum+20}</p>
+              <p style={{ lineHeight: "16px", margin: 0 }}>{favoritesnum}</p>
               </HeartBox>
               </Box>
             <Text type={'WRITER'}>{post.category}</Text>
