@@ -102,7 +102,7 @@ export const Header = (props) => {
         {type !== "LOGIN" ? (
           <>
             <ClassText to="/class" size={"LARGE"}>
-              재능기부
+              재능나눔
             </ClassText>
             <Text to="/board" size={"LARGE"}>
               재능모집
