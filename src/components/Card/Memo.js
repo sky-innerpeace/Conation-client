@@ -33,7 +33,7 @@ export const Memo = (props) => {
 
     return (
         <Container index={index}>
-            <Text>벌레 잘 잡으시는 분 구합니다 제발 구해주세요 덕성 세스콤을 기다립니다</Text>
+            <Text>벌레 잘 잡으시는 분 구합니다 제발 구해주세요 벌레 잘 잡으시는 분 구합니다 제발 구해주세요 덕성 세스콤을 기다립니다</Text>
         </Container>
     )
 }

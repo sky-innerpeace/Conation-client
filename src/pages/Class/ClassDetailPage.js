@@ -65,6 +65,8 @@ const SubmitButton = styled.button`
 `
 const OtherWrapper = styled.div``
 
+// 신청하기 버튼 /registerClass
+// setOtehrs 바뀌면 반영
 const ClassDetailPage = ({ history }) => {
   const location = useLocation();
   const classId = location.state.data;

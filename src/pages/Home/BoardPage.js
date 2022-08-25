@@ -14,7 +14,7 @@ const BoardWrapper = styled.div`
 `;
 
 const Board = styled.div`
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
   background-image: url(${boardImage});
   width: 100%;
