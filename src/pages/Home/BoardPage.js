@@ -19,6 +19,7 @@ const Board = styled.div`
   display: flex;
   flex-direction: row;
   background-image: url(${boardImage});
+  border: 50px solid #301E22;
   width: 100%;
   max-width: 1200px;
   /* height: 500px; */

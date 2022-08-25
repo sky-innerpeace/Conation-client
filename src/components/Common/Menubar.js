@@ -36,9 +36,11 @@ const LogoBox = styled(Link)`
     `}
 `;
 
-const MyBox = styled.a`
+const MyBox = styled(Link)`
   display: flex;
   flex-direction: column;
+  color: black;
+  text-decoration: none;
 `;
 
 const MyText = styled.div`
@@ -113,7 +115,7 @@ export const Header = (props) => {
         )}
       </HeaderMenuWrapper>
       {user ? (
-        <MyBox>
+        <MyBox to='/my'>
           <img src={require("../../assets/icons/my.svg").default} alt={""} />
           <MyText>내 정보</MyText>
         </MyBox>

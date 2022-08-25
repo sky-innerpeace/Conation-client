@@ -96,8 +96,6 @@ export const CategoryFilterList = (props) => {
           clicked={filter && filter.includes("자격증스터디")}
         />
         <Text clicked={filter && filter.includes("자격증스터디")}>
-          자격증
-          <br />
           스터디
         </Text>
       </TagWrapper>
@@ -112,9 +110,7 @@ export const CategoryFilterList = (props) => {
           clicked={filter && filter.includes("회화공예")}
         />
         <Text clicked={filter && filter.includes("회화공예")}>
-          회화
-          <br />
-          공예
+          회화공예
         </Text>
       </TagWrapper>
       <TagWrapper
@@ -129,8 +125,6 @@ export const CategoryFilterList = (props) => {
         />
         <Text clicked={filter && filter.includes("독서글쓰기")}>
           독서
-          <br />
-          글쓰기
         </Text>
       </TagWrapper>
       <TagWrapper
@@ -156,9 +150,7 @@ export const CategoryFilterList = (props) => {
           clicked={filter && filter.includes("음악악기")}
         />
         <Text clicked={filter && filter.includes("음악악기")}>
-          음악
-          <br />
-          악기
+          음악악기
         </Text>
       </TagWrapper>
       <TagWrapper
@@ -173,8 +165,6 @@ export const CategoryFilterList = (props) => {
         />
         <Text clicked={filter && filter.includes("요리베이킹")}>
           요리
-          <br />
-          베이킹
         </Text>
       </TagWrapper>
       <TagWrapper

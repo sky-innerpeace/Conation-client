@@ -9,6 +9,7 @@ const Container = styled.div`
     max-height: 150px;
     min-height: 100px;
     background-color: ${props => colors[props.index]};
+    transform: rotate(${props => props.degree + 'deg'});
     /* background-color: #; */
     padding: 30px;
     margin: 10px;
@@ -28,11 +29,12 @@ const Text = styled.p`
 export const Memo = (props) => {
     // 포스트잇 #FFDB8D #F390AF #9460A8 #1DBCB8 #F27478
     let index = Math.floor(Math.random() * 5);
+    let degree = Math.floor(Math.random() * 30) - 15;
     const data = props.data;
 
     return (
-        <Container index={index}>
-            <Text>{data.text}qjffqewfewfdsfdsodjifsjflksjlfkskdfjlksdjfksjflskdjf</Text>
+        <Container index={index} degree={degree}>
+            <Text>{data.text}</Text>
         </Container>
     )
 }

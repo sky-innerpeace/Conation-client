@@ -101,6 +101,7 @@ const ClassDetailPage = ({ history }) => {
         <PostWrapper>
         <ImageWrapper></ImageWrapper>
           <ContentWrapper>
+              <Text type={'WRITER'}>{post.placetype ? '[오프라인]' : '[온라인]'}</Text>
               <Text type={'TITLE'}>{post.title}</Text>
               <Text type={'WRITER'}>{post.writer?.name}</Text>
               <Text type={'WRITER'}>{post.category}</Text>
