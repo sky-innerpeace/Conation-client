@@ -4,11 +4,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/HomePage";
 import ClassListPage from "./pages/Class/ClassListPage";
 import ClassDetailPage from "./pages/Class/ClassDetailPage";
-import BoardPage from "./pages/Home/BoardPage";
+import BoardPage from "./pages/Board/BoardPage";
 import RegisterPage from "./pages/Home/RegisterPage";
 import LoginPage from "./pages/Home/LoginPage";
 import MyPage from "./pages/My/Mypage"
 import ClassWritePage from "./pages/Class/ClassWritePage";
+import BoardWritePage from "./pages/Board/BoardWritingPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/my" element={<MyPage />} />
           <Route path="/class/write" element={<ClassWritePage />} />
+          <Route path="/board/write" element={<BoardWritePage />} />
         </Routes>
       </Router>
     </>
