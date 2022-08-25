@@ -26,7 +26,7 @@ const HeaderMenuWrapper = styled.nav`
 const LogoBox = styled(Link)`
   width: 100px;
   height: 100px;
-  margin-right: 200px;
+  margin-right: 30px;
   ${(props) =>
     props.type === "LOGIN" &&
     css`

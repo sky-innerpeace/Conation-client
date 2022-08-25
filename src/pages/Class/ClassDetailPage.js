@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { ClassList } from "../../components/List/ClassList";
+import Modal from "../../components/Common/Modal";
 
 const TEXTSTYLE = {
     // font-size, color, margin-right
@@ -94,33 +95,65 @@ const ClassDetailPage = ({ history }) => {
   const user = useSelector((store) => store.userReducer.userId);
   const [post, setPost] = useState([]);
   const [others, setOthers] = useState([]);
+  const [isMyPost, setIsMyPost] = useState(false);
   const [heart, setHeart] = useState(false); // hard-coding
   const [favoritesnum, setFavoritesnum] = useState(null);
+  const [apply, setApply] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const submitHandler = () => {
+    if(user) {
+      let body = {
+        "writer": post.writer._id,
+        "class": post._id,
+        "applicant": user
+      }
+      axios.post("/api/class/register", body).then((response)=>{
+        setApply(true)
+        openModal()
+      })
+    } else {
+      alert("로그인을 먼저 해야 합니다!")
+    }
+  }
+
+  const openModal = () => {
+    setModalVisible(true)
+  }
+
+  const closeModal = () => {
+    setModalVisible(false)
+  }
+
 
   useEffect(() => {
     axios
       .post("/api/class/getClassDetail", { _id: classId })
       .then((response) => {
         if(response.data.success) {
-          console.log(response.data.result);
+          console.log(response.data);
+          if(response.data.result.writer._id === user) {
+            // 개설자가 본인인 경우
+            setIsMyPost(true);
+          }
+          response.data.applicant.map((app, index) => {
+            if(app._id === user) { // 이미 신청 완료한 경우
+              setApply(true);
+            }
+          })
           setPost(response.data.result);
           setFavoritesnum(response.data.result.favorites.length);
+          setOthers(response.data.recommend);
         }
-        
-        axios
-        .get(`/api/class/getClassList?category=${response.data.result.category}`)
-        .then((response) => {
-          if (response.data.success) {
-            setOthers(response.data.result);
-          }
-        });
       });
       
   }, [classId]);
 
   useEffect(() => {
-    setHeart(post.favorites && post.favorites.includes(user));
-  }, [post.favorites, user]);
+    if(user) {
+      setHeart(post.favorites && post.favorites.includes(user));
+    }
+  }, [post, user]);
 
   const favoriteHandler = (values) => {
     // body : userId, classId
@@ -142,10 +175,13 @@ const ClassDetailPage = ({ history }) => {
   };
   const buttonClickHandler = (event) => {
     event.preventDefault();
-    // 로그인 안 했을 때 예외처리해야 함
-    // 로그인 안 한 유저에게는 toast 띄우기
-    setHeart(!heart);
-    favoriteHandler();
+    if (user) {
+      setHeart(!heart);
+      favoriteHandler();
+    } else {
+      alert("로그인을 먼저 해야 합니다!")
+    }
+    
   };
 
   return (
@@ -153,7 +189,14 @@ const ClassDetailPage = ({ history }) => {
       <Header />
       <PageContainer>
         <PostWrapper>
-        <ImageWrapper></ImageWrapper>
+        {modalVisible && 
+        <Modal 
+          visible={modalVisible} 
+          closable={true}
+          maskClosable={true}
+          onClose={closeModal}>개설자 {post?.writer.name}님의 연락처는 {post?.writer.email}입니다.<br />3일 내에 기부자 덕우에게 연락해주세요.🙂</Modal>
+          }
+        <ImageWrapper /> 
           <ContentWrapper>
 
             <Text type={'WRITER'}>{post.placetype ? '[오프라인]' : '[온라인]'}</Text>
@@ -177,7 +220,17 @@ const ClassDetailPage = ({ history }) => {
               </Box>
             <Text type={'WRITER'}>{post.category}</Text>
             <Text type={'CONTENT'}>{post.content}</Text>
-            <SubmitButton>신청하기</SubmitButton>
+            {isMyPost ?
+              <></>
+            :
+            <>
+              {apply ?
+                <SubmitButton onClick={() => {alert("이미 신청 완료했습니다.")}}>신청 완료</SubmitButton>
+                :
+                <SubmitButton onClick={() => {submitHandler()}}>신청하기</SubmitButton>
+              }
+            </>
+            }
           </ContentWrapper>
           </PostWrapper>
           <div>

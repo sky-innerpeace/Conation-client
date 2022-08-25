@@ -19,7 +19,6 @@ const CardContainer = styled(Link)`
   margin: 24px 20px;
   text-decoration: none;
   color: black;
-  border: ${props => props.hasBorder ? props.borderColor : 0};
 `;
 
 const Image = styled.img`
@@ -73,7 +72,6 @@ export const ClassCard = (props) => {
   // user 정보 받아오기
   const data = props.data;
   const hasBorder = props.hasBorder || false;
-  const borderColor = props.borderColor || null;
   const [favoritesnum, setFavoritesnum] = useState(props.data.favorites.length);
   const [heart, setHeart] = useState(false); // hard-coding
   const userId = useSelector((store) => store.userReducer.userId);
@@ -109,7 +107,7 @@ export const ClassCard = (props) => {
   };
 
   return (
-    <CardContainer to={`/class/detail`} state={{ data: data && data._id }} hasBorder={hasBorder} borderColor={borderColor}>
+    <CardContainer to={`/class/detail`} state={{ data: data && data._id }}>
       {/* {data.image.length > 0 ? <Image src={image} /> : <Image src={require("")} />} */}
       <Image src={image} />
       <TextWrapper>

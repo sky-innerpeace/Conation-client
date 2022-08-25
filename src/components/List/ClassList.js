@@ -12,7 +12,7 @@ const ListContainer = styled.div`
 `;
 // justify-content 빼기
 export const ClassList = (props) => {
-  console.log(props.data);
+  // console.log(props.data);
   const userId = props.user || null;
   const data = props.data || null;
   const hasBorder = props.hasBorder || null;
@@ -22,7 +22,6 @@ export const ClassList = (props) => {
 
   return (
     <ListContainer>
-      {CardList}
       {CardList}
     </ListContainer>
   );
