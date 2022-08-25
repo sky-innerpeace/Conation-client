@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import image from "../../assets/image/thumnail.png";
+//import image from "../../assets/image/thumnail.png";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -71,14 +71,13 @@ const FavoriteButton = styled.button`
 export const ClassCard = (props) => {
   // user 정보 받아오기
   const data = props.data;
-  const hasBorder = props.hasBorder || false;
   const [favoritesnum, setFavoritesnum] = useState(props.data.favorites.length);
   const [heart, setHeart] = useState(false); // hard-coding
   const userId = useSelector((store) => store.userReducer.userId);
 
   useEffect(() => {
     setHeart(data.favorites.includes(userId));
-  }, []);
+  }, [data.favorites, userId]);
 
   const favoriteHandler = (values) => {
     // body : userId, classId
@@ -109,7 +108,7 @@ export const ClassCard = (props) => {
   return (
     <CardContainer to={`/class/detail`} state={{ data: data && data._id }}>
       {/* {data.image.length > 0 ? <Image src={image} /> : <Image src={require("")} />} */}
-      <Image src={image} />
+      <Image src={data.image} />
       <TextWrapper>
         <TextBox>
           <Text type={"CATEGORY"}>{data.category}</Text>
@@ -118,10 +117,12 @@ export const ClassCard = (props) => {
               {heart ? (
                 <img
                   src={require("../../assets/icons/heart-selected.svg").default}
+                  alt=""
                 />
               ) : (
                 <img
                   src={require("../../assets/icons/heart-default.svg").default}
+                  alt=""
                 />
               )}
             </FavoriteButton>
