@@ -63,7 +63,7 @@ const Text = styled(NavLink)`
 const ClassText = styled(Text)`
   &.active::before {
     content: "";
-    bottom: -25px;
+    bottom: -35px;
     position: absolute;
     width: 0;
     height: 0;
